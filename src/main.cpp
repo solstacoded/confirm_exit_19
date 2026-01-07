@@ -5,17 +5,12 @@ using namespace geode::prelude;
 
 class $modify(ConfirmExitPauseLayer, PauseLayer) {
     struct Fields {
-        uint8_t m_exit_confirmed = 0;
+        bool m_exit_confirmed = false;
     };
     
     void onQuit(cocos2d::CCObject* sender) {
-        /* ok so this is a stupid hacky fix.
-         * basically for some ungodly reason the popup lambda calls
-         * ConfirmExitPauseLayer::onQuit instead of PauseLayer::onQuit like it should.
-         * the only way i could figure out how to fix this was to accept this and
-         * set a separate variable to detect if we've already confirmed, and then call the function again.
-         */
-        if (m_fields->m_exit_confirmed == 0) {
+        
+        if (!m_fields->m_exit_confirmed) {
             geode::log::debug("onQuit called");
             
             geode::createQuickPopup(
@@ -24,21 +19,15 @@ class $modify(ConfirmExitPauseLayer, PauseLayer) {
                 "Cancel", "Exit",
                 [this, &sender](auto, bool btn2) {
                     if (btn2) {
-                        m_fields->m_exit_confirmed++;
+                        m_fields->m_exit_confirmed = true;
                         PauseLayer::onQuit(sender);
                     }
                 }
             );
         }
-        else if (m_fields->m_exit_confirmed == 1) {
-            geode::log::debug("onQuit re-called");
-            m_fields->m_exit_confirmed++;
-            PauseLayer::onQuit(sender);
-            
-        }
         else {
-            geode::log::warn("Quit button broke! that's Not Good");
+            geode::log::debug("onQuit re-called");
+            PauseLayer::onQuit(sender);
         }
-        
     }
 };
