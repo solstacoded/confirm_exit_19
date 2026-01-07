@@ -1,0 +1,12 @@
+{
+	"geode": "4.9.0",
+	"gd": {
+		"win": "1.920",
+		"android": "1.920"
+	},
+	"id": "solstacoded.confirm_exit",
+	"name": "Confirm Exit",
+	"version": "v1.0.0",
+	"developer": "solstacoded",
+	"description": "what do you mean this isn't already a mod"
+}
