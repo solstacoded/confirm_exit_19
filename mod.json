@@ -8,5 +8,8 @@
 	"name": "Confirm Exit",
 	"version": "v1.0.0",
 	"developer": "solstacoded",
-	"description": "what do you mean this isn't already a mod"
+	"description": "what do you mean this isn't already a mod",
+    "links": {
+        "source": "https://github.com/solstacoded/confirm_exit_19"
+    }
 }
